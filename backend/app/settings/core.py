@@ -50,9 +50,18 @@ if FIREBASE_APP:
     # Path to the Firebase credentials file
     FIREBASE_CREDENTIALS_PATH: pathlib.Path = BASE_DIR / FIREBASE_CREDENTIALS_FNAME
 
-    # Firebase database URL (None if not set)
-    FIREBASE_DB_URL: str | None = os.getenv('FIREBASE_DB_URL', None)
+    # FIRESTORE and FIREBASE_RTDB environment variables 
+    FIRE_STORE_ENABLE: bool = os.getenv('FIRE_STORE', "false").lower() == "true"
+    FIREBASE_RTDB_ENABLE: bool = os.getenv('FIREBASE_RTDB', "false").lower() == "true"
 
-    # Warning if FIREBASE_DB_URL is not set
-    if not FIREBASE_DB_URL:
-        warnings.warn('FIREBASE_DB_URL env variable is not set!')
+    if FIRE_STORE_ENABLE:
+        print('INFO: Firestore can be used!')
+
+    if FIREBASE_RTDB_ENABLE:
+        print('INFO: Firebase Realtime Database can be used!')
+        # Firebase database URL (None if not set)
+        FIREBASE_DB_URL: str | None = os.getenv('FIREBASE_DB_URL', None)
+
+        # Warning if FIREBASE_DB_URL is not set
+        if not FIREBASE_DB_URL:
+            warnings.warn('FIREBASE_DB_URL env variable is not set!')

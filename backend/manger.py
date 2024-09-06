@@ -1,5 +1,6 @@
 import uvicorn
 import click
+import sys
 
 @click.group()
 def cli() -> None:
@@ -17,11 +18,15 @@ def runserver(host: str, port: int, reload: bool) -> None:
     else:
         from app import APP
         uvicorn.run(APP, host=host, port=port)
+        
+    # Exit the program after running the server
+    sys.exit(0)
 
 @cli.command()
 def test() -> None:
     """Run tests or other tasks."""
     click.echo("Running tests...")  # Add actual test code if needed
 
+    
 if __name__ == '__main__':
     cli()
