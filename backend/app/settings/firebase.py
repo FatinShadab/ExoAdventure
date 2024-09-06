@@ -24,6 +24,7 @@ FIREBASE_APP: App = initialize_app(FIREBASE_CREDENTIALS, {
     'databaseURL': FIREBASE_DB_URL
 })
 
+
 if FIREBASE_RTDB_ENABLE:
     from firebase_admin import db
     # Define Firebase database reference
