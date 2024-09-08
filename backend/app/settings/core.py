@@ -65,3 +65,11 @@ if FIREBASE_APP:
         # Warning if FIREBASE_DB_URL is not set
         if not FIREBASE_DB_URL:
             warnings.warn('FIREBASE_DB_URL env variable is not set!')
+
+PYREBASE_CREDENTIALS_FNAME: str = os.getenv('PYREBASE_CREDENTIALS_FNAME', None)
+PYREBASE_CREDENTIALS_PATH: pathlib.Path | None = None
+
+if not PYREBASE_CREDENTIALS_FNAME:
+    warnings.warn('PYREBASE_CREDENTIALS_FNAME env variable is not set!')
+else:
+    PYREBASE_CREDENTIALS_PATH = BASE_DIR / PYREBASE_CREDENTIALS_FNAME

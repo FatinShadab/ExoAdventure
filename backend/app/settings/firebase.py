@@ -3,11 +3,16 @@ firebase.py
 
 Setup and initialize Firebase with FastAPI integration.
 """
-
+import json
+import pyrebase
 from fastapi import HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPBearer
 from firebase_admin import initialize_app, credentials, App
-from .core import FIREBASE_CREDENTIALS_PATH, FIREBASE_DB_URL, FIRE_STORE_ENABLE, FIREBASE_RTDB_ENABLE
+from .core import (
+    FIREBASE_CREDENTIALS_PATH, FIREBASE_DB_URL,
+    FIRE_STORE_ENABLE, FIREBASE_RTDB_ENABLE,
+    PYREBASE_CREDENTIALS_PATH
+)
 
 # Initialize Firebase credentials
 FIREBASE_CREDENTIALS: credentials.Certificate = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
@@ -37,3 +42,12 @@ if FIRE_STORE_ENABLE:
 
 # Define HTTPBearer for security
 FIREBASE_BEARER: HTTPBearer = HTTPBearer(auto_error=False)
+
+
+if PYREBASE_CREDENTIALS_PATH:
+    # Read the Firebase credentials JSON file and convert it to a Python dictionary
+    with open(PYREBASE_CREDENTIALS_PATH, 'r') as f:
+        firebase_credentials = json.load(f)
+    
+    # Initialize Pyrebase app with the credentials
+    PYREBASE_APP: pyrebase.pyrebase.Firebase = pyrebase.initialize_app(firebase_credentials)
