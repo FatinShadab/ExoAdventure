@@ -163,3 +163,4 @@ cython_debug/
 
 
 .fb_secret.json
+.pb_secret.json
