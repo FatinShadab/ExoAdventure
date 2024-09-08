@@ -12,7 +12,7 @@ from typing import Dict
 from fastapi import APIRouter
 
 # Create an APIRouter instance for organizing the routes in this module
-router: APIRouter = APIRouter()
+router: APIRouter = APIRouter(prefix="/dev", tags=["dev"])
 
 @router.get("/test")
 def hello() -> Dict[str, str]:
